@@ -17,7 +17,6 @@ namespace TrustedCaptain.Handlers
 
         public void OnRespawningTeam(RespawningTeamEventArgs ev)
         {
-            Log.Info("Respawning Team!");
             if (ev.NextKnownTeam != SpawnableTeamType.NineTailedFox) return;
 
             Timing.CallDelayed(3f, () => {

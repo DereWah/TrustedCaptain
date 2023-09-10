@@ -14,7 +14,8 @@ namespace TrustedCaptain
 
         public Dictionary<int, string> TrustedCaptains { get; set;  } = new()
         {
-            { 1, "userid@steam" }
+            { 1, "userid@steam" },
+            { 2, "userid@steam"}
         };
     }
 }
