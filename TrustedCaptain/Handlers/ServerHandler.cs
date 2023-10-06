@@ -1,4 +1,5 @@
 ﻿using Exiled.API.Enums;
+using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs.Server;
 using MEC;
@@ -12,35 +13,37 @@ using System.Threading.Tasks;
 
 namespace TrustedCaptain.Handlers
 {
-    class ServerHandler
+    public class ServerHandler
     {
+
+        private readonly TrustedCaptain plugin;
+        public ServerHandler(TrustedCaptain plugin) => this.plugin = plugin;
+
 
         public void OnRespawningTeam(RespawningTeamEventArgs ev)
         {
             if (ev.NextKnownTeam != SpawnableTeamType.NineTailedFox) return;
 
-            Timing.CallDelayed(3f, () => {
+            //A trusted captain is searched for in the spawning list
+            Player? player = ev.Players.FirstOrDefault(p => plugin.Config.TrustedCaptains.Values.Contains(p.UserId));
+            
+            if(player == null)
+            {
+                //if it is not found it is looked for in the spectators
+                player = Player.Get(RoleTypeId.Spectator).FirstOrDefault(p => plugin.Config.TrustedCaptains.Values.Contains(p.UserId));
+            }
+            else
+            {
+                //if it is found we remove it from the pool
+                ev.Players.Remove(player);
+            }
 
-                if (ev.Players.Where(p => p.Role.Type == RoleTypeId.NtfCaptain).Count() != 0) return;
+            //if no player was found in spectators either, we go with standard game behaviour
+            if(player == null) return;
+            //if was found in the spectators or in the pool we remove the captain from spawnable roles and spawn said player as a captain.
+            ev.SpawnQueue.RemoveFromQueue(RoleTypeId.NtfCaptain);
+            player.Role.Set(RoleTypeId.NtfCaptain, SpawnReason.Respawn);
 
-                foreach (Player player in ev.Players.Where(p => TrustedCaptain.Singleton.Config.TrustedCaptains.Values.Contains(p.UserId)))
-                {
-                    player.Role.Set(RoleTypeId.NtfCaptain, reason: SpawnReason.Respawn);
-                    return;
-                }
-                //If still no captain, searchs for a trusted one in the Spectators.
-                foreach(Player player in Player.List.Where(p => (p.Role.Type == RoleTypeId.Spectator && TrustedCaptain.Singleton.Config.TrustedCaptains.Values.Contains(p.UserId))))
-                {
-                    player.Role.Set(RoleTypeId.NtfCaptain, reason: SpawnReason.Respawn);
-                    return;
-                }
-
-                //If still nothing, get a random cadet.
-                ev.Players.RandomItem().Role.Set(RoleTypeId.NtfCaptain);
-                return;
-                
-
-            });
         }
 
     }

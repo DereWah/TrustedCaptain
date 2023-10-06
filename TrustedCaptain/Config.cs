@@ -1,6 +1,7 @@
 ﻿using Exiled.API.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,11 @@ namespace TrustedCaptain
     {
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; } = false;
-
-        public Dictionary<int, string> TrustedCaptains { get; set;  } = new()
+        [Description("A list of players that will be trusted to spawn as captains. Key of the dictionary values below can be anything")]
+        public Dictionary<string, string> TrustedCaptains { get; set;  } = new()
         {
-            { 1, "userid@steam" },
-            { 2, "userid@steam"}
+            { "APlayerHere", "userid@steam" },
+            { "AnotherPlayerWoah", "userid@steam"}
         };
     }
 }

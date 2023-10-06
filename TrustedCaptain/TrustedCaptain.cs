@@ -22,17 +22,16 @@ namespace TrustedCaptain
         public override PluginPriority Priority { get; } = PluginPriority.Medium;
 
 
-        public static TrustedCaptain Singleton { get; private set; }
+        public static TrustedCaptain Instance { get; private set; }
 
 
         private Handlers.ServerHandler serverHandler;
-        private Handlers.PlayerHandler playerHandler;
 
 
         public override void OnEnabled()
         {
             base.OnEnabled();
-            Singleton = this;
+            Instance = this;
             RegisterEvents();
         }
 
@@ -44,19 +43,15 @@ namespace TrustedCaptain
 
         public void RegisterEvents()
         {
-            playerHandler = new Handlers.PlayerHandler();
-            serverHandler = new Handlers.ServerHandler();
+            serverHandler = new Handlers.ServerHandler(this);
 
-            Player.ChangingRole += playerHandler.OnChangingRole;
             Server.RespawningTeam += serverHandler.OnRespawningTeam;
         }
 
         public void UnregisterEvents()
         {
-            Player.ChangingRole -= playerHandler.OnChangingRole;
             Server.RespawningTeam -= serverHandler.OnRespawningTeam;
 
-            playerHandler = null;
             serverHandler = null;
         }
 

@@ -39,6 +39,10 @@
     <Reference Include="Assembly-CSharp-Publicized">
       <HintPath>..\..\..\..\Desktop\SCPServer\Master\Assembly-CSharp-Publicized.dll</HintPath>
     </Reference>
+    <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\SCPServer\Master\CommandSystem.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Exiled.API">
       <HintPath>..\..\..\..\AppData\Roaming\EXILED\Plugins\dependencies\Exiled.API.dll</HintPath>
     </Reference>
@@ -55,6 +59,10 @@
     <Reference Include="Mono.Posix">
       <HintPath>..\..\..\..\AppData\Roaming\EXILED\Plugins\dependencies\Mono.Posix.dll</HintPath>
     </Reference>
+    <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\SCPServer\Master\PluginAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,10 +74,13 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\Desktop\SCPServer\Master\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\SCPServer\Master\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="Handlers\PlayerHandler.cs" />
     <Compile Include="Handlers\ServerHandler.cs" />
     <Compile Include="TrustedCaptain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
